@@ -3,6 +3,8 @@
   --button-space: 10px;
   --boardLength: calc((var(--button-size) * 2) + var(--button-space));
   --controlLength: calc(var(--button-size) * 0.75);
+  --scoreWidth: calc(var(--controlLength) / 2);
+  --controlButtonLength: 50px;
 }
 
 .button {
@@ -103,21 +105,42 @@
 }
 
 #start-stop {
-  background-color: red;
+  background-color: blue;
+  color: white;
+  border: 1px solid white;
+  border-radius: 50%;
+  width: var(--controlButtonLength);
+  height: var(--controlButtonLength);
 }
 #start-stop:active {
   background-color: pink;
 }
 
 #score {
-  background-color: purple;
+  background-color: black;
+  color: white;
+  border: 1px solid white;
+  padding: 5px;
+  max-width: var(--scoreWidth);
+  width: 100%;
+  display: grid;
+  grid-template-columns: 1fr 2fr;
+  grid-template-areas: "label score";
+  border-radius: 25%;
 }
 
 #score > div {
   display: inline-block;
 }
 #score .control-label {
-  margin-right: 5px;
+  grid-area: label;
+}
+#score .control-group {
+  text-align: right;
+  grid-area: score;
+  font-family: digital;
+  color: yellow;
+  font-size: 1.125rem;
 }
 
 .control-label {
@@ -126,9 +149,17 @@
 }
 
 #difficulty {
-  background-color: white;
+  border: 1px solid white;
   text-align: center;
   font-size: 0.75rem;
+  color: white;
+  background-color: black;
+  padding: 5px;
+  border-radius: 25%;
+}
+
+#difficulty .control-label {
+  margin-bottom: 5px;
 }
 
 #difficulty .control-group ul {
