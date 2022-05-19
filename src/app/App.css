@@ -2,6 +2,7 @@
   --button-size: 250px;
   --button-space: 10px;
   --boardLength: calc((var(--button-size) * 2) + var(--button-space));
+  --controlLength: calc(var(--button-size) * 0.75);
 }
 
 .button {
@@ -50,6 +51,13 @@
   background-color: lightblue;
 }
 
+#gameboard {
+  height: 100vh;
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+}
+
 #button-group {
   width: var(--boardLength);
   height: var(--boardLength);
@@ -67,44 +75,75 @@
 }
 
 #simon-game {
-  border: 10px black solid;
   margin: auto;
   width: calc(var(--boardLength) + 20px);
   position: relative;
 }
 
 #game-controls {
-  position: absolute;
-  top: 0;
-  border: 2px red solid;
-  width: 100%;
-  height: 100%;
-  display: flex;
-  flex-direction: row;
-  justify-content: center;
-  align-items: center;
-}
-
-#control-panel {
   background-color: gray;
-  width: calc(var(--button-size) * 0.75);
-  height: calc(var(--button-size) * 0.75);
+  width: var(--controlLength);
+  height: var(--controlLength);
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: center;
   border-radius: 50%;
   border: 2px solid black;
+  position: absolute;
+  top: calc(50% - (var(--controlLength) / 2));
+  left: calc(50% - (var(--controlLength) / 2));
 }
 
-#startStop {
+#game-controls > * {
+  margin-top: 10px;
+}
+#game-controls > *:first-child {
+  margin-top: 0;
+}
+
+#start-stop {
   background-color: red;
+}
+#start-stop:active {
+  background-color: pink;
 }
 
 #score {
   background-color: purple;
 }
 
+#score > div {
+  display: inline-block;
+}
+#score .control-label {
+  margin-right: 5px;
+}
+
+.control-label {
+  font-size: 1rem;
+  font-weight: 600;
+}
+
 #difficulty {
   background-color: white;
+  text-align: center;
+  font-size: 0.75rem;
+}
+
+#difficulty .control-group ul {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+#difficulty .control-group ul li {
+  display: inline-block;
+  margin: 0 10px;
+  text-align: center;
+}
+
+#difficulty .control-group ul li input {
+  display: block;
+  margin: auto;
 }
