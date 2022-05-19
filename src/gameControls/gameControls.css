@@ -1,0 +1,26 @@
+.control-label {
+  font-size: 1rem;
+  font-weight: 600;
+}
+
+#game-controls {
+  background-color: gray;
+  width: var(--controlLength);
+  height: var(--controlLength);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  border-radius: 50%;
+  border: 2px solid black;
+  position: absolute;
+  top: calc(50% - (var(--controlLength) / 2));
+  left: calc(50% - (var(--controlLength) / 2));
+}
+
+#game-controls > * {
+  margin-top: 10px;
+}
+#game-controls > *:first-child {
+  margin-top: 0;
+}
