@@ -1,0 +1,11 @@
+#start-stop {
+  background-color: blue;
+  color: white;
+  border: 1px solid white;
+  border-radius: 50%;
+  width: var(--controlButtonLength);
+  height: var(--controlButtonLength);
+}
+#start-stop:active {
+  background-color: pink;
+}

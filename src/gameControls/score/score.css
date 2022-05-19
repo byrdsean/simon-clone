@@ -1,0 +1,26 @@
+#score {
+  background-color: black;
+  color: white;
+  border: 1px solid white;
+  padding: 5px;
+  max-width: var(--scoreWidth);
+  width: 100%;
+  display: grid;
+  grid-template-columns: 1fr 2fr;
+  grid-template-areas: "label score";
+  border-radius: 25%;
+}
+
+#score > div {
+  display: inline-block;
+}
+#score .control-label {
+  grid-area: label;
+}
+#score .control-group {
+  text-align: right;
+  grid-area: score;
+  font-family: digital;
+  color: yellow;
+  font-size: 1.125rem;
+}
