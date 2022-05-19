@@ -18,7 +18,7 @@ function App() {
         </div>
         <div id="game-controls">
           <button id="start-stop" onClick={clickGameButton}>
-            Start/Stop
+            Start
           </button>
           <div id="difficulty">
             <div className="control-label">Difficulty</div>
@@ -56,7 +56,7 @@ function App() {
           </div>
           <div id="score">
             <div className="control-label">Score</div>
-            <div className="control-group">1</div>
+            <div className="control-group">9,999</div>
           </div>
         </div>
       </div>
