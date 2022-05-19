@@ -1,38 +1,110 @@
-.App {
-  text-align: center;
+:root {
+  --button-size: 250px;
+  --button-space: 10px;
+  --boardLength: calc((var(--button-size) * 2) + var(--button-space));
 }
 
-.App-logo {
-  height: 40vmin;
-  pointer-events: none;
+.button {
+  background-color: purple;
+  max-width: var(--button-size);
+  max-height: var(--button-size);
+  width: 100%;
+  height: 100%;
+  border: 2px solid black;
 }
 
-@media (prefers-reduced-motion: no-preference) {
-  .App-logo {
-    animation: App-logo-spin infinite 20s linear;
-  }
+.button.red {
+  background-color: red;
+  grid-area: redBtn;
+  border-top-right-radius: 50%;
+}
+.button.green {
+  background-color: green;
+  grid-area: greenBtn;
+  border-top-left-radius: 50%;
+}
+.button.yellow {
+  background-color: yellow;
+  grid-area: yellowBtn;
+  border-bottom-left-radius: 50%;
+}
+.button.blue {
+  background-color: blue;
+  grid-area: blueBtn;
+  border-bottom-right-radius: 50%;
 }
 
-.App-header {
-  background-color: #282c34;
-  min-height: 100vh;
+.button.red:active {
+  background-color: pink;
+}
+
+.button.green:active {
+  background-color: lightgreen;
+}
+
+.button.yellow:active {
+  background-color: orange;
+}
+
+.button.blue:active {
+  background-color: lightblue;
+}
+
+#button-group {
+  width: var(--boardLength);
+  height: var(--boardLength);
+  padding: var(--button-space);
+  background-color: gray;
+  display: grid;
+  grid-template-columns: repeat(2, var(--button-size));
+  grid-template-rows: repeat(2, var(--button-size));
+  grid-template-areas:
+    "greenBtn redBtn"
+    "yellowBtn blueBtn";
+  column-gap: var(--button-space);
+  row-gap: var(--button-space);
+  border-radius: 25%;
+}
+
+#simon-game {
+  border: 10px black solid;
+  margin: auto;
+  width: calc(var(--boardLength) + 20px);
+  position: relative;
+}
+
+#game-controls {
+  position: absolute;
+  top: 0;
+  border: 2px red solid;
+  width: 100%;
+  height: 100%;
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+}
+
+#control-panel {
+  background-color: gray;
+  width: calc(var(--button-size) * 0.75);
+  height: calc(var(--button-size) * 0.75);
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  font-size: calc(10px + 2vmin);
-  color: white;
+  border-radius: 50%;
+  border: 2px solid black;
 }
 
-.App-link {
-  color: #61dafb;
+#startStop {
+  background-color: red;
 }
 
-@keyframes App-logo-spin {
-  from {
-    transform: rotate(0deg);
-  }
-  to {
-    transform: rotate(360deg);
-  }
+#score {
+  background-color: purple;
+}
+
+#difficulty {
+  background-color: white;
 }
