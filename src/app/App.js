@@ -17,10 +17,46 @@ function App() {
           <button className="button blue" id="blue"></button>
         </div>
         <div id="game-controls">
-          <div id="control-panel">
-            <button id="startStop">Start/Stop</button>
-            <div id="difficulty">Medium</div>
-            <div id="score">Score: 1</div>
+          <button id="start-stop" onClick={clickGameButton}>
+            Start/Stop
+          </button>
+          <div id="difficulty">
+            <div className="control-label">Difficulty</div>
+            <div className="control-group">
+              <ul>
+                <li>
+                  <input
+                    type="radio"
+                    name="difficultyGroup"
+                    id="easy"
+                    value="easy"
+                  />
+                  <label htmlFor="easy">Easy</label>
+                </li>
+                <li>
+                  <input
+                    type="radio"
+                    name="difficultyGroup"
+                    id="medium"
+                    value="medium"
+                  />
+                  <label htmlFor="medium">Medium</label>
+                </li>
+                <li>
+                  <input
+                    type="radio"
+                    name="difficultyGroup"
+                    id="hard"
+                    value="hard"
+                  />
+                  <label htmlFor="easy">Hard</label>
+                </li>
+              </ul>
+            </div>
+          </div>
+          <div id="score">
+            <div className="control-label">Score</div>
+            <div className="control-group">1</div>
           </div>
         </div>
       </div>
