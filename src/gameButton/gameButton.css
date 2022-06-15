@@ -28,18 +28,22 @@
   border-bottom-right-radius: 50%;
 }
 
-.button.red:active {
+.button.red:enabled:active,
+.button.red.active {
   background-color: pink;
 }
 
-.button.green:active {
+.button.green:enabled:active,
+.button.green.active {
   background-color: lightgreen;
 }
 
-.button.yellow:active {
+.button.yellow:enabled:active,
+.button.yellow.active {
   background-color: orange;
 }
 
-.button.blue:active {
+.button.blue:enabled:active,
+.button.blue.active {
   background-color: lightblue;
 }

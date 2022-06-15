@@ -4,12 +4,12 @@ import Difficulty from "./difficulty/difficulty";
 import StartStop from "./start-stop/start-stop";
 import "./gameControls.css";
 
-function GameControls() {
+function GameControls({ start_stop, startFlag, score } = this.props) {
   return (
     <div id="game-controls">
-      <StartStop />
+      <StartStop start_stop={start_stop} startFlag={startFlag} />
       <Difficulty />
-      <Score />
+      <Score score={score} />
     </div>
   );
 }
