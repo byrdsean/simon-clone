@@ -9,3 +9,6 @@
 #start-stop:active {
   background-color: pink;
 }
+#start-stop.end {
+  background-color: red;
+}
