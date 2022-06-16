@@ -14,6 +14,7 @@ function App() {
   const [colorsPerLevel, setColorsPerLevel] = useState([]);
   const [selectedColor, setSelectedColor] = useState("");
   const [updatingColorsPerLevel, setUpdatingColorsPerLevel] = useState(false);
+  const [hightlightDuration, setHightlightDuration] = useState(1000);
 
   const updateColorList = () => {
     //Add a new color to the list of colors per level
@@ -43,6 +44,22 @@ function App() {
   useEffect(() => {}, [startFlag]);
 
   useEffect(() => {
+    let timeoutHandle = null;
+    if (selectedColor !== null && 0 < selectedColor.length) {
+      let duration = Math.floor(hightlightDuration / 2.0);
+      timeoutHandle = setTimeout(() => {
+        setSelectedColor("");
+      }, duration);
+    }
+
+    return () => {
+      if (timeoutHandle) {
+        clearTimeout(timeoutHandle);
+      }
+    };
+  }, [selectedColor]);
+
+  useEffect(() => {
     let intervalHandle = null;
     if (0 < colorsPerLevel.length) {
       setUpdatingColorsPerLevel(true);
@@ -58,7 +75,7 @@ function App() {
           console.log(displayColor);
           setSelectedColor(displayColor);
         }
-      }, 1000);
+      }, hightlightDuration);
     }
 
     //Make sure to clear interval
