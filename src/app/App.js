@@ -5,7 +5,13 @@ import GameButton from "../gameButton/gameButton";
 import GameControls from "../gameControls/gameControls";
 import { useEffect, useState } from "react";
 
+const baseHighlightDuration = 1000;
 const colors = ["green", "red", "yellow", "blue"];
+const difficulty = {
+  easy: 1,
+  medium: 0.5,
+  hard: 0.25,
+};
 
 function App() {
   const [startFlag, setStartFlag] = useState(false);
@@ -21,11 +27,18 @@ function App() {
   const [updatingColorsPerLevel, setUpdatingColorsPerLevel] = useState(false);
 
   //Length of time to highlight a button
-  const [hightlightDuration, setHightlightDuration] = useState(1000);
+  const [hightlightDuration, setHightlightDuration] = useState(
+    baseHighlightDuration
+  );
 
   //Index of the current color to check against user input
   const [checkColorIndex, setCheckColorIndex] = useState(0);
   //--------------------------------------------------
+
+  const setDifficulty = (setting) => {
+    let newDifficulty = difficulty.hasOwnProperty(setting) ? setting : "easy";
+    setHightlightDuration(baseHighlightDuration * difficulty[newDifficulty]);
+  };
 
   const clickGameButton = (color) => {
     if (!updatingColorsPerLevel) {
@@ -76,6 +89,7 @@ function App() {
     setUpdatingColorsPerLevel(false);
     setCheckColorIndex(0);
     setScore(0);
+    setHightlightDuration(baseHighlightDuration);
   };
 
   const start_stop = () => {
@@ -161,6 +175,8 @@ function App() {
           start_stop={start_stop}
           startFlag={startFlag}
           score={score}
+          setDifficulty={setDifficulty}
+          disable={updatingColorsPerLevel}
         />
       </div>
     </div>
