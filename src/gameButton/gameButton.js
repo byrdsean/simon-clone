@@ -2,13 +2,15 @@ import React from "react";
 import "./gameButton.css";
 
 function GameButton(props) {
-  const clickGameButton = () => console.log(`${props.color} Button clicked!`);
+  const clickColorButton = () => {
+    props.clickGameButton(props.color);
+  };
 
   return (
     <button
       className={`button ${props.color} ${props.selected ? "active" : ""}`}
       id={props.color}
-      onClick={clickGameButton}
+      onClick={clickColorButton}
       disabled={props.disable}
     ></button>
   );
