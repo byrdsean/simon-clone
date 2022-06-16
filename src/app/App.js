@@ -11,10 +11,50 @@ function App() {
   const [startFlag, setStartFlag] = useState(false);
   const [score, setScore] = useState(0);
 
+  //List of colors for each level
   const [colorsPerLevel, setColorsPerLevel] = useState([]);
+
+  //Currently selected color when game highlights buttons to user
   const [selectedColor, setSelectedColor] = useState("");
+
+  //Flag to know the game is updating the colors for a level
   const [updatingColorsPerLevel, setUpdatingColorsPerLevel] = useState(false);
+
+  //Length of time to highlight a button
   const [hightlightDuration, setHightlightDuration] = useState(1000);
+
+  //Index of the current color to check against user input
+  const [checkColorIndex, setCheckColorIndex] = useState(0);
+  //--------------------------------------------------
+
+  const clickGameButton = (color) => {
+    if (!updatingColorsPerLevel) {
+      console.log(`${color} Button clicked!`);
+
+      //When the user clicks a button, verify it against "colorsPerLevel".
+      //Increment score each time user correctly matches button in a sequence.
+      //If user successfully inputs correct button sequence, new colors are updated.
+      //Else, game ends.
+      if (color === colorsPerLevel[checkColorIndex]) {
+        setScore((state) => state + 1);
+        setCheckColorIndex((state) => state + 1);
+      } else {
+        endGame();
+      }
+    }
+  };
+
+  useEffect(() => {
+    if (0 < checkColorIndex && colorsPerLevel.length <= checkColorIndex) {
+      //Wait the length of "hightlightDuration" before updating color list
+      setTimeout(() => {
+        //User successfully matched all colors for this level.
+        //Update the color list, and reset the index to check the color
+        setCheckColorIndex(0);
+        updateColorList();
+      }, hightlightDuration);
+    }
+  }, [checkColorIndex]);
 
   const updateColorList = () => {
     //Add a new color to the list of colors per level
@@ -27,22 +67,33 @@ function App() {
   };
 
   const endGame = () => {
-    // stopColorListUpdate();
+    console.log("GAME OVER!");
+
+    //Reset the state values
+    setStartFlag(false);
+    setColorsPerLevel([]);
+    setSelectedColor("");
+    setUpdatingColorsPerLevel(false);
+    setCheckColorIndex(0);
+    setScore(0);
   };
 
   const start_stop = () => {
-    let newFlagValue = !startFlag;
-    setStartFlag(newFlagValue);
-    if (newFlagValue) {
+    setStartFlag((state) => !state);
+  };
+  //--------------------------------------------------
+
+  //Start / End the game
+  useEffect(() => {
+    if (startFlag) {
       startGame();
     } else {
       endGame();
     }
-  };
+  }, [startFlag]);
 
-  //useEffect methods
-  useEffect(() => {}, [startFlag]);
-
+  //When the game selects a button, de-select the button after a duration.
+  //This is to give the effect of a button click to the user.
   useEffect(() => {
     let timeoutHandle = null;
     if (selectedColor !== null && 0 < selectedColor.length) {
@@ -59,6 +110,8 @@ function App() {
     };
   }, [selectedColor]);
 
+  //Highlight each button corresponding to the colors for this level.
+  //Once complete, set flag to know if is the user's turn
   useEffect(() => {
     let intervalHandle = null;
     if (0 < colorsPerLevel.length) {
@@ -86,18 +139,21 @@ function App() {
       }
     };
   }, [colorsPerLevel]);
+  //--------------------------------------------------
 
   return (
     <div id="gameboard">
       <div id="simon-game">
         <div id="button-group">
-          {colorsPerLevel.join(", ")}
+          <p>{colorsPerLevel.join(", ")}</p>
+          <p>{`Current turn: ${!updatingColorsPerLevel ? "User" : "Game"}`}</p>
           {colors.map((aColor) => (
             <GameButton
               key={aColor}
               color={aColor}
               selected={aColor === selectedColor}
               disable={updatingColorsPerLevel}
+              clickGameButton={clickGameButton}
             />
           ))}
         </div>
