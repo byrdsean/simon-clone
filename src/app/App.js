@@ -33,6 +33,9 @@ function App() {
 
   //Index of the current color to check against user input
   const [checkColorIndex, setCheckColorIndex] = useState(0);
+
+  //State to reset the default game speed
+  const [defaultSpeed, setDefaultSpeed] = useState();
   //--------------------------------------------------
 
   const setDifficulty = (setting) => {
@@ -57,22 +60,16 @@ function App() {
     }
   };
 
-  useEffect(() => {
-    if (0 < checkColorIndex && colorsPerLevel.length <= checkColorIndex) {
-      //Wait the length of "hightlightDuration" before updating color list
-      setTimeout(() => {
-        //User successfully matched all colors for this level.
-        //Update the color list, and reset the index to check the color
-        setCheckColorIndex(0);
-        updateColorList();
-      }, hightlightDuration);
-    }
-  }, [checkColorIndex]);
-
   const updateColorList = () => {
     //Add a new color to the list of colors per level
     let nextColor = colors[Math.floor(Math.random() * colors.length)];
     setColorsPerLevel([...colorsPerLevel, nextColor]);
+  };
+
+  const resetGameSpeed = () => {
+    if (defaultSpeed) {
+      defaultSpeed.click();
+    }
   };
 
   const startGame = () => {
@@ -83,6 +80,7 @@ function App() {
     console.log("GAME OVER!");
 
     //Reset the state values
+    resetGameSpeed();
     setStartFlag(false);
     setColorsPerLevel([]);
     setSelectedColor("");
@@ -153,6 +151,18 @@ function App() {
       }
     };
   }, [colorsPerLevel]);
+
+  useEffect(() => {
+    if (0 < checkColorIndex && colorsPerLevel.length <= checkColorIndex) {
+      //Wait the length of "hightlightDuration" before updating color list
+      setTimeout(() => {
+        //User successfully matched all colors for this level.
+        //Update the color list, and reset the index to check the color
+        setCheckColorIndex(0);
+        updateColorList();
+      }, hightlightDuration);
+    }
+  }, [checkColorIndex]);
   //--------------------------------------------------
 
   return (
@@ -168,6 +178,7 @@ function App() {
               selected={aColor === selectedColor}
               disable={updatingColorsPerLevel}
               clickGameButton={clickGameButton}
+              gameStart={startFlag}
             />
           ))}
         </div>
@@ -176,6 +187,7 @@ function App() {
           startFlag={startFlag}
           score={score}
           setDifficulty={setDifficulty}
+          setDefaultSpeed={setDefaultSpeed}
           disable={updatingColorsPerLevel}
         />
       </div>

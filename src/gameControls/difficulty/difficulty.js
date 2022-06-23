@@ -13,7 +13,9 @@ function Difficulty(props) {
   };
 
   useEffect(() => {
-    document.getElementById("easy").click();
+    let defaultSpeed = document.getElementById("easy");
+    defaultSpeed.click();
+    props.setDefaultSpeed(defaultSpeed);
   }, []);
 
   return (
@@ -23,7 +25,7 @@ function Difficulty(props) {
         <ul>
           {difficultyLevels &&
             difficultyLevels.map((diff) => (
-              <li>
+              <li key={`${diff.value}_li`}>
                 <input
                   type="radio"
                   name="difficultyGroup"
