@@ -47,3 +47,7 @@
 .button.blue.active {
   background-color: lightblue;
 }
+
+.button.opaque {
+  opacity: 0.25;
+}

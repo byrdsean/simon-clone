@@ -8,10 +8,12 @@ function GameButton(props) {
 
   return (
     <button
-      className={`button ${props.color} ${props.selected ? "active" : ""}`}
+      className={`button ${props.color} ${props.selected ? "active" : ""} ${
+        !props.gameStart ? "opaque" : ""
+      }`}
       id={props.color}
       onClick={clickColorButton}
-      disabled={props.disable}
+      disabled={props.disable || !props.gameStart}
     ></button>
   );
 }
