@@ -1,6 +1,12 @@
 import React, { useEffect } from "react";
 import "./difficulty.css";
 
+const difficultyLevels = [
+  { label: "Slow", value: "easy" },
+  { label: "Medium", value: "medium" },
+  { label: "Fast", value: "hard" },
+];
+
 function Difficulty(props) {
   const setNewDifficultySetting = (e) => {
     props.setDifficulty(e.target.value);
@@ -12,42 +18,23 @@ function Difficulty(props) {
 
   return (
     <div id="difficulty">
-      <div className="control-label">Difficulty</div>
+      <div className="control-label">Speed</div>
       <div className="control-group">
         <ul>
-          <li>
-            <input
-              type="radio"
-              name="difficultyGroup"
-              id="easy"
-              value="easy"
-              onClick={setNewDifficultySetting}
-              disabled={props.disable}
-            />
-            <label htmlFor="easy">Easy</label>
-          </li>
-          <li>
-            <input
-              type="radio"
-              name="difficultyGroup"
-              id="medium"
-              value="medium"
-              onClick={setNewDifficultySetting}
-              disabled={props.disable}
-            />
-            <label htmlFor="medium">Medium</label>
-          </li>
-          <li>
-            <input
-              type="radio"
-              name="difficultyGroup"
-              id="hard"
-              value="hard"
-              onClick={setNewDifficultySetting}
-              disabled={props.disable}
-            />
-            <label htmlFor="easy">Hard</label>
-          </li>
+          {difficultyLevels &&
+            difficultyLevels.map((diff) => (
+              <li>
+                <input
+                  type="radio"
+                  name="difficultyGroup"
+                  id={diff.value}
+                  value={diff.value}
+                  onClick={setNewDifficultySetting}
+                  disabled={props.disable}
+                />
+                <label htmlFor={diff.value}>{diff.label}</label>
+              </li>
+            ))}
         </ul>
       </div>
     </div>
