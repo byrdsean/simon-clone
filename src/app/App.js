@@ -60,9 +60,29 @@ function App() {
     }
   };
 
+  const getRandomColor = (colorListToPick) => {
+    return colorListToPick[Math.floor(Math.random() * colorListToPick.length)];
+  };
+
   const updateColorList = () => {
+    //Check if the last 2 items are identical.
+    //If so, ensure that we pick another color.
+    let lastTwoColorsIdentical =
+      2 <= colorsPerLevel.length &&
+      colorsPerLevel[colorsPerLevel.length - 1] ===
+        colorsPerLevel[colorsPerLevel.length - 2];
+
+    let nextColor = null;
+    if (lastTwoColorsIdentical) {
+      let filteredColors = colors.filter(
+        (col) => col !== colorsPerLevel[colorsPerLevel.length - 1]
+      );
+      nextColor = getRandomColor(filteredColors);
+    } else {
+      nextColor = getRandomColor(colors);
+    }
+
     //Add a new color to the list of colors per level
-    let nextColor = colors[Math.floor(Math.random() * colors.length)];
     setColorsPerLevel([...colorsPerLevel, nextColor]);
   };
 
