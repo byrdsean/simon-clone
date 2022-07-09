@@ -3,6 +3,7 @@
 import "./App.css";
 import GameButton from "../gameButton/gameButton";
 import GameControls from "../gameControls/gameControls";
+import GamePrompt from "../gameControls/gamePrompt/gamePrompt";
 import { useEffect, useState } from "react";
 
 const baseHighlightDuration = 1000;
@@ -14,8 +15,9 @@ const difficulty = {
 };
 
 function App() {
-  const [startFlag, setStartFlag] = useState(false);
+  const [startFlag, setStartFlag] = useState(null);
   const [score, setScore] = useState(0);
+  const [showGameOver, setShowGameOver] = useState(false);
 
   //List of colors for each level
   const [colorsPerLevel, setColorsPerLevel] = useState([]);
@@ -93,11 +95,13 @@ function App() {
   };
 
   const startGame = () => {
+    setShowGameOver(false);
     updateColorList();
   };
 
   const endGame = () => {
-    console.log("GAME OVER!");
+    setShowGameOver(true);
+    console.log("endGame");
 
     //Reset the state values
     resetGameSpeed();
@@ -119,7 +123,7 @@ function App() {
   useEffect(() => {
     if (startFlag) {
       startGame();
-    } else {
+    } else if (startFlag !== null) {
       endGame();
     }
   }, [startFlag]);
@@ -188,9 +192,12 @@ function App() {
   return (
     <div id="gameboard">
       <div id="simon-game">
+        <GamePrompt
+          startFlag={startFlag}
+          updatingColorsPerLevel={updatingColorsPerLevel}
+        />
         <div id="button-group">
           <p>{colorsPerLevel.join(", ")}</p>
-          <p>{`Current turn: ${!updatingColorsPerLevel ? "User" : "Game"}`}</p>
           {colors.map((aColor) => (
             <GameButton
               key={aColor}
@@ -201,6 +208,9 @@ function App() {
               gameStart={startFlag}
             />
           ))}
+        </div>
+        <div id="gameOverPrompt" className={showGameOver ? "" : "hide"}>
+          Game Over!
         </div>
         <GameControls
           start_stop={start_stop}
