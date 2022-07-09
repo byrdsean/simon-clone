@@ -13,7 +13,7 @@ function Difficulty(props) {
   };
 
   useEffect(() => {
-    let defaultSpeed = document.getElementById("easy");
+    let defaultSpeed = document.getElementById("medium");
     defaultSpeed.click();
     props.setDefaultSpeed(defaultSpeed);
   }, []);
