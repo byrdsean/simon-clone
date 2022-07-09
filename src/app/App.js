@@ -47,8 +47,6 @@ function App() {
 
   const clickGameButton = (color) => {
     if (!updatingColorsPerLevel) {
-      console.log(`${color} Button clicked!`);
-
       //When the user clicks a button, verify it against "colorsPerLevel".
       //Increment score each time user correctly matches button in a sequence.
       //If user successfully inputs correct button sequence, new colors are updated.
@@ -96,12 +94,12 @@ function App() {
 
   const startGame = () => {
     setShowGameOver(false);
+    setScore(0);
     updateColorList();
   };
 
   const endGame = () => {
     setShowGameOver(true);
-    console.log("endGame");
 
     //Reset the state values
     resetGameSpeed();
@@ -110,7 +108,6 @@ function App() {
     setSelectedColor("");
     setUpdatingColorsPerLevel(false);
     setCheckColorIndex(0);
-    setScore(0);
     setHightlightDuration(baseHighlightDuration);
   };
 
@@ -155,13 +152,11 @@ function App() {
       let i = 0;
       intervalHandle = setInterval(() => {
         if (i === colorsPerLevel.length && intervalHandle) {
-          console.log("Ending...");
           setSelectedColor("");
           setUpdatingColorsPerLevel(false);
           clearInterval(intervalHandle);
         } else {
           let displayColor = colorsPerLevel[i++];
-          console.log(displayColor);
           setSelectedColor(displayColor);
         }
       }, hightlightDuration);
@@ -197,7 +192,6 @@ function App() {
           updatingColorsPerLevel={updatingColorsPerLevel}
         />
         <div id="button-group">
-          <p>{colorsPerLevel.join(", ")}</p>
           {colors.map((aColor) => (
             <GameButton
               key={aColor}
